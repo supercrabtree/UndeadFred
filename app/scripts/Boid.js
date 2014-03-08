@@ -1,45 +1,55 @@
-var Boid = (function() {
-  function Boid(x,y,maxSpeed,maxForce,boundRect){
-    this.position = new Vector(x||0, y||0);
-    this.maxSpeed = maxSpeed||1;
-    this.maxForce = maxForce||5;
+'use strict';
+
+var Boid = (function () {
+  function Boid(x, y, maxSpeed, maxForce, boundRect) {
+    this.position = new Vector(x || 0, y || 0);
+    this.maxSpeed = maxSpeed || 1;
+    this.maxForce = maxForce || 5;
     this.boundRect = boundRect;
 
-    this.velocity = new Vector;
-    this.acceleration = new Vector;
-    this.lastPosition = new Vector;
+    this.velocity = new Vector();
+    this.acceleration = new Vector();
+    this.lastPosition = new Vector();
     this.wanderAngle = 0;
-  };
+  }
 
-  Boid.prototype.wander = function(wanderRadius, wanderChange, wanderLength) {
-    if (wanderRadius == null) wanderRadius = 20;
-    if (wanderChange == null) wanderChange = 0.3;
-    if (wanderLength == null) wanderLength = 1;
+  Boid.prototype.wander = function (wanderRadius, wanderChange, wanderLength) {
+    if (wanderRadius === null) {
+      wanderRadius = 20;
+    }
+    if (wanderChange === null) {
+      wanderChange = 0.3;
+    }
+    if (wanderLength === null) {
+      wanderLength = 1;
+    }
 
     var circleMiddle = this.velocity.clone().norm().multiply(wanderRadius);
     var wanderForce = new Vector().setLength(wanderLength).setAngle(this.wanderAngle);
-    this.wanderAngle += Math.random() * wanderChange - wanderChange * .5;
+    this.wanderAngle += Math.random() * wanderChange - wanderChange * 0.5;
     circleMiddle.add(wanderForce);
     this.applyForce(wanderForce);
   };
 
-  Boid.prototype.applyForce = function(force) {
+  Boid.prototype.applyForce = function (force) {
     this.acceleration.add(force);
   };
 
-  Boid.prototype.update = function() {
+  Boid.prototype.update = function () {
     this.lastPosition.copy(this.position);
     this.velocity.add(this.acceleration).truncate(this.maxSpeed);
     this.position.add(this.velocity);
     this.acceleration.zero();
-    if (this.boundRect) return this.checkForEdges();
+    if (this.boundRect) {
+      return this.checkForEdges();
+    }
   };
 
-  Boid.prototype.checkForEdges = function() {
+  Boid.prototype.checkForEdges = function () {
     if (this.position.equals(this.lastPosition)) {
       return;
     }
-    if (this.position.x < this.boundRect[0] ) {
+    if (this.position.x < this.boundRect[0]) {
       this.position.x = this.boundRect[0];
       this.velocity.multiply(-1);
       this.wanderAngle += 180;
@@ -49,7 +59,7 @@ var Boid = (function() {
       this.velocity.multiply(-1);
       this.wanderAngle += 180;
     }
-    if (this.position.y < this.boundRect[1] ) {
+    if (this.position.y < this.boundRect[1]) {
       this.position.y = this.boundRect[1];
       this.velocity.multiply(-1);
       this.wanderAngle += 180;
@@ -61,32 +71,16 @@ var Boid = (function() {
     }
   };
 
-  Boid.prototype.toString = function(){
-    return "x:" + this.position.x + ", y:" + this.position.y;
+  Boid.prototype.toString = function () {
+    return 'x:' + this.position.x + ', y:' + this.position.y;
   };
   return Boid;
 })();
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*var Boid = (function() {
+/*var Boid = (function () {
     function Boid(x, y, boundRect) {
-      if (x == null) x = 0;
-      if (y == null) y = 0;
+      if (x === null) x = 0;
+      if (y === null) y = 0;
       this.boundRect = boundRect;
       this.maxSpeed = 10;
       this.maxForce = 5;
@@ -97,7 +91,7 @@ var Boid = (function() {
       this.wanderAngle = 0;
     }
 
-    Boid.prototype.update = function() {
+    Boid.prototype.update = function () {
       this.lastPosition.copy(this.position);
       this.velocity.add(this.acceleration);
       this.velocity.truncate(this.maxSpeed);
@@ -108,19 +102,19 @@ var Boid = (function() {
       }
     };
 
-    Boid.prototype.applyForce = function(force) {
+    Boid.prototype.applyForce = function (force) {
       return this.acceleration.add(force);
     };
 
-    Boid.prototype.wander = function(wanderRadius, wanderChange, wanderLength) {
+    Boid.prototype.wander = function (wanderRadius, wanderChange, wanderLength) {
       var circleMiddle, wanderForce;
-      if (wanderRadius == null) {
+      if (wanderRadius === null) {
         wanderRadius = 10;
       }
-      if (wanderChange == null) {
+      if (wanderChange === null) {
         wanderChange = 1;
       }
-      if (wanderLength == null) {
+      if (wanderLength === null) {
         wanderLength = 2.5;
       }
       circleMiddle = this.velocity.clone();
@@ -134,9 +128,9 @@ var Boid = (function() {
       return this.applyForce(wanderForce);
     };
 
-    Boid.prototype.arrive = function(target, slowingDistance) {
+    Boid.prototype.arrive = function (target, slowingDistance) {
       var desired, distance, steer;
-      if (slowingDistance == null) {
+      if (slowingDistance === null) {
         slowingDistance = 20;
       }
       desired = Vector.subtract(target, this.position);
@@ -152,7 +146,7 @@ var Boid = (function() {
       }
     };
 
-    Boid.prototype.seek = function(target) {
+    Boid.prototype.seek = function (target) {
       var desired, steer;
       desired = Vector.subtract(target, this.position);
       desired.norm();
@@ -162,9 +156,9 @@ var Boid = (function() {
       return this.applyForce(steer);
     };
 
-    Boid.prototype.flee = function(target, threshold) {
+    Boid.prototype.flee = function (target, threshold) {
       var desired, steer;
-      if (threshold == null) {
+      if (threshold === null) {
         threshold = 50;
       }
       if ((this.position.distance(target)) > threshold) {
@@ -182,8 +176,8 @@ var Boid = (function() {
     };
 
 
-    Boid.prototype.isCollidingWith = function(vector, threshold) {
-      if (threshold == null) {
+    Boid.prototype.isCollidingWith = function (vector, threshold) {
+      if (threshold === null) {
         threshold = 10;
       }
       if ((Vector.subtract(this.position, vector)).length() < threshold) {
@@ -193,7 +187,7 @@ var Boid = (function() {
       }
     };
 
-    Boid.prototype.persuit = function(target) {
+    Boid.prototype.persuit = function (target) {
       var distance, p, t, v;
       distance = this.position.distance(target);
       t = distance / this.maxSpeed;
@@ -204,9 +198,9 @@ var Boid = (function() {
       return this.seek(p);
     };
 
-    Boid.prototype.evade = function(target, threshold) {
+    Boid.prototype.evade = function (target, threshold) {
       var distance, p, t, v;
-      if (threshold == null) {
+      if (threshold === null) {
         threshold = 50;
       }
       distance = this.position.distance(target);
@@ -217,8 +211,8 @@ var Boid = (function() {
       return p.add(v);
     };
 
-    Boid.prototype.toString = function(){
-      return "x:" + this.x + ", y:" + this.y;
+    Boid.prototype.toString = function (){
+      return 'x:' + this.x + ', y:' + this.y;
     }
 
     return Boid;
