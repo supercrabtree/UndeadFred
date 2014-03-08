@@ -1,0 +1,10 @@
+{
+  "name": "undeadfred",
+  "private": true,
+  "dependencies": {
+    "bootstrap-sass": "git://github.com/twbs/bootstrap-sass.git#v3.1.0",
+    "modernizr": "~2.6.2",
+    "jquery": "~1.10.2"
+  },
+  "devDependencies": {}
+}
