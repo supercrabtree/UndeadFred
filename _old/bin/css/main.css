@@ -1,0 +1,23 @@
+body {
+	background: #BBBBBB;
+	background: -webkit-gradient(linear, left top, right bottom, from(#666666), to(#999999));
+	text-align: center;
+}
+
+h1 {
+	text-shadow: 4px 4px 5px #222222;
+	margin: 0;
+	padding: 0;	
+	font-size: 0em;
+	font-family: Tahoma;
+	color: #EEEEEE;
+	-webkit-text-stroke: 6px #EEEEEE;
+}
+
+#game-canvas {
+	margin-left: auto;
+	margin-right: auto;
+	background: #000000;
+	border-radius: 5px;
+	box-shadow: 2px 2px 5px #000000;
+}
