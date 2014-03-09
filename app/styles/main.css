@@ -6277,9 +6277,27 @@ body {
 }
 
 body {
-  background: #333333;
+  overflow: hidden;
+  text-align: center;
+}
+
+img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  min-width: 100%;
+  min-height: 100%;
+  z-index: -1;
 }
 
 canvas {
   display: block;
+}
+
+h1 {
+  display: inline-block;
+  margin: 0;
+  font-size: 80px;
+  color: #1ee978;
+  font-family: "Londrina Solid";
 }

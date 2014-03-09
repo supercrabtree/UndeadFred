@@ -31,6 +31,8 @@
     "angular": false,
     "Modernizr": false,
     "TweenMax": false,
+    "TweenLite": false,
+    "Power4": false,
     "Vector": true,
     "Boid": true
   }
