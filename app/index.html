@@ -7,7 +7,7 @@
         <meta charset="utf-8">
         <title>UndeadFred</title>
         <meta name="description" content="">
-        <meta name="viewport" content="width=device-width">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
 
         <link href='http://fonts.googleapis.com/css?family=Londrina+Solid' rel='stylesheet' type='text/css'>
 
@@ -35,9 +35,19 @@
             <h1 id="t9">r</h1>
             <h1 id="t10">e</h1>
             <h1 id="t11">d</h1>
+            <!-- <img class="fred-title" src="/images/fred-left.png"> -->
         </header>
         <canvas id="canvas"></canvas>
-        <img src="/images/background.svg">
+        <img class="background" src="/images/background.svg">
+
+        <div class="button-holder">
+            <button class="btn btn-lg btn-primary">wander</button>
+            <button class="btn btn-lg btn-primary">arrive</button>
+            <button class="btn btn-lg btn-primary">seek</button>
+            <button class="btn btn-lg btn-primary">flee</button>
+            <button class="btn btn-lg btn-primary">evade</button>
+            <button class="btn btn-lg btn-primary">persuit</button>
+        </div>
 
         <!-- build:js scripts/vendor.js -->
         <script src="bower_components/greensock/src/uncompressed/TweenMax.js"></script>
@@ -61,8 +71,10 @@
         <script src="bower_components/bootstrap-sass/vendor/assets/javascripts/bootstrap/tab.js"></script>
         <!-- endbuild -->
         <!-- build:js scripts/main.js -->
+        <script src="scripts/Graphics.js"></script>
         <script src="scripts/Vector.js"></script>
         <script src="scripts/Boid.js"></script>
+        <script src="scripts/Character.js"></script>
         <script src="scripts/main.js"></script>
         <!-- endbuild -->
 </body>
