@@ -5,7 +5,6 @@ var Boid = (function () {
     this.position = new Vector(x || 0, y || 0);
     this.maxSpeed = maxSpeed || 1;
     this.maxForce = maxForce || 5;
-    this.boundRect = boundRect;
 
     this.velocity = new Vector();
     this.acceleration = new Vector();

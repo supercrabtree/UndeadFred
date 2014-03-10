@@ -2,25 +2,24 @@
 
 var Graphics = (function () {
 
-  var that;
-  var numGraphicsToLoad = 0;
-  var count = 0;
-
   function Graphics(incoming) {
-    that = this;
+    var self = this;
+    var numGraphicsToLoad = 0;
+    var count = 0;
+
     this.isReady = false;
 
     for (var arg in incoming) {
       var img = this[arg] = new Image();
       img.onload = onImageLoaded;
-      img.src = incoming[arg];
       numGraphicsToLoad++;
+      img.src = incoming[arg];
     }
-  }
 
-  function onImageLoaded() {
-    if (++count === numGraphicsToLoad) {
-      that.isReady = true;
+    function onImageLoaded() {
+      if (++count === numGraphicsToLoad) {
+        self.isReady = true;
+      }
     }
   }
 

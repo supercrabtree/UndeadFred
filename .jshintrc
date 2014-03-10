@@ -34,7 +34,10 @@
     "TweenLite": false,
     "Power4": false,
     "Vector": true,
-    "Boid": true
+    "Boid": true,
+    "Graphics": true,
+    "SimpleGameEngine": true,
+    "Character": true
   }
 }
 

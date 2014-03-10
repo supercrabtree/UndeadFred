@@ -8,6 +8,10 @@ var Character = (function () {
     this.isUndead = false;
   }
 
+  Character.prototype.update = function () {
+
+  };
+
   Character.prototype.render = function (context) {
     if (!this.graphics.isReady) {
       return;
