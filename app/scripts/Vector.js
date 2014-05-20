@@ -64,16 +64,12 @@ var Vector = (function () {
 	};
 
 	Vector.prototype.isNearlyEqualTo = function (vector2, threshold) {
-		if (threshold === null) {
-			threshold = 0.1;
-		}
+		threshold = threshold || 0.1;
 		return this.isEqualTo(vector2, threshold);
 	};
 
 	Vector.prototype.isEqualTo = function (vector2, threshold) {
-		if (threshold === null) {
-			threshold = 0;
-		}
+		threshold = threshold || 0;
 		if ((vector2.x + threshold < this.x && this.x > vector2.x - threshold) && (vector2.y + threshold < this.y && this.y > vector2.y - threshold)) {
 			return true;
 		} else {
